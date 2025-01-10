@@ -10,6 +10,7 @@ import {
   Box,
   Typography,
   Tooltip,
+  Backdrop,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
@@ -112,19 +113,19 @@ const Header = () => {
       </box>
 
       {isSearch && (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Backdrop open/>}>
           <SearchDialog />
         </Suspense>
       )}
 
       {isNotification && (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Backdrop open/>}>
           <NotificationDialog />
         </Suspense>
       )}
 
       {isNewGroup && (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Backdrop open/>}>
           <NewGroupDialog />
         </Suspense>
       )}
