@@ -1,9 +1,8 @@
 import { orange } from "../../constants/color";
-import React from "react";
+import React, { lazy } from "react";
 import App from "../../App";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import SearchDialog from "../specific/Search"
 import {
   AppBar,
   IconButton,
@@ -21,10 +20,13 @@ import {
   Notifications as NotificationsIcon,
 } from "@mui/icons-material";
 
+const SearchDialog = lazy(() => import("../specific/Search"));
+const NotificationDialog = lazy(() => import("../specific/Notifications"));
+const NewGroupDialog = lazy(() => import("../specific/NewGroup"));
+
 const Header = () => {
   const navigate = useNavigate();
-  const [ismobile, setIsMobile] = useState(false);
-  const [issearch, setIsSearch] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
   const [isNewGroup, setIsNewGroup] = useState(false);
   const [isNotification, setIsNotification] = useState(false);
 
@@ -109,11 +111,23 @@ const Header = () => {
         </AppBar>
       </box>
 
-        {/* {
-          isSearch &&(
-            <SearchDialog/>
-          )
-        } */}
+      {isSearch && (
+        <Suspense fallback={<div>Loading...</div>}>
+          <SearchDialog />
+        </Suspense>
+      )}
+
+      {isNotification && (
+        <Suspense fallback={<div>Loading...</div>}>
+          <NotificationDialog />
+        </Suspense>
+      )}
+
+      {isNewGroup && (
+        <Suspense fallback={<div>Loading...</div>}>
+          <NewGroupDialog />
+        </Suspense>
+      )}
     </>
   );
 };
