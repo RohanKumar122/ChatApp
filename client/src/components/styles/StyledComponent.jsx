@@ -14,4 +14,3 @@ export const VisuallyHiddenInput =styled("input")({
     width: "1px"
 })
 
-{/* <VisuallyHiddenInput/> */}
