@@ -62,7 +62,7 @@ const Applayout = () => (WrappedComponent) => {
           </Grid>
         </Grid>
 
-        <WrappedComponent {...props} />
+        {/* <WrappedComponent {...props} /> */}
       </>
     );
   };
