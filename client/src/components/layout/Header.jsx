@@ -3,6 +3,7 @@ import React, { lazy } from "react";
 import App from "../../App";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Suspense } from "react";
 import {
   AppBar,
   IconButton,
@@ -14,7 +15,7 @@ import {
 } from "@mui/material";
 import {
   Menu as MenuIcon,
-  Search as SerachIcon,
+  Search as SearchIcon,
   Add as AddIcon,
   Group as GroupIcon,
   Logout as LogoutIcon,
@@ -27,6 +28,7 @@ const NewGroupDialog = lazy(() => import("../specific/NewGroup"));
 
 const Header = () => {
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [isNewGroup, setIsNewGroup] = useState(false);
   const [isNotification, setIsNotification] = useState(false);
@@ -45,12 +47,12 @@ const Header = () => {
     setIsNotification((prev) => !prev);
   };
 
-  const navigateToGroup = () => navigate("/groups");
+  // const navigateToGroup = () => navigate("/groups");
   const handleLogOut = () => {};
 
   return (
     <>
-      <box sx={{ flexGrow: 1 }} height={"4rem"}>
+      <Box sx={{ flexGrow: 1 }} height={"4rem"}>
         <AppBar
           position="static"
           sx={{
@@ -66,7 +68,7 @@ const Header = () => {
             </Typography>
 
             <Box sx={{ display: { xs: "block", sm: "none" } }}>
-              <IconButton color="inherit" onclick={HandleMobile}>
+              <IconButton color="inherit" onClick={HandleMobile}>
                 <MenuIcon />
               </IconButton>
             </Box>
@@ -80,7 +82,7 @@ const Header = () => {
             <Box>
               {IconBtn({
                 title: "Search",
-                icon: <SerachIcon />,
+                icon: <SearchIcon />,
                 onClick: openSearchDailog,
               })}
 
@@ -93,7 +95,7 @@ const Header = () => {
               <IconBtn
                 title="Groups"
                 icon={<GroupIcon />}
-                onClick={navigateToGroup}
+                onClick={openNewGroup}
               />
 
               <IconBtn
@@ -110,7 +112,7 @@ const Header = () => {
             </Box>
           </Toolbar>
         </AppBar>
-      </box>
+      </Box>
 
       {isSearch && (
         <Suspense fallback={<Backdrop open/>}>
@@ -136,7 +138,7 @@ const Header = () => {
 const IconBtn = ({ title, icon, onClick }) => {
   return (
     <Tooltip title={title}>
-      <IconButton color="inherit" size="large" onclick={onClick}>
+      <IconButton color="inherit" size="large" onClick={onClick}>
         {icon}
       </IconButton>
     </Tooltip>
