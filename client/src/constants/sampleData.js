@@ -4,7 +4,7 @@ export const SampleChats = [
     avatar: ["https://www.w3schools.com/howto/img_avatar.png"],
     name: "John",
     _id: "1",
-    groupChat: false,
+    groupChat: true,
     members: ["1", "2"],
   },
 
@@ -61,11 +61,8 @@ export const sampleNotification = [
 
 export const sampleMessages = [
   {
-    attachements:[
-      {
-        public_id :"asasdad",
-        url :"https://www.w3schools.com/howto/img_avatar.png",
-      }
+    attachments:[
+   
     ],
     content: "hello",
     _id: "fsfrfwerfwdsfs",
@@ -77,13 +74,12 @@ export const sampleMessages = [
     createdAt :"2023-01-01T00:00:00.000Z",
   },
   {
-    attachements:[
+    attachments:[
       {
         public_id :"asasdad",
         url :"https://www.w3schools.com/howto/img_avatar.png",
       }
     ],
-    content: "Hii bro How Are You!!",
     _id: "fsfrfwerfwdsfsqq",
     sender:{
       _id:"eqerwqrsff",

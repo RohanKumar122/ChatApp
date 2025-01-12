@@ -48,7 +48,7 @@ const Header = () => {
     setIsNotification((prev) => !prev);
   };
 
-  // const navigateToGroup = () => navigate("/groups");
+  const navigateToGroup = () => navigate("/groups");
   const handleLogOut = () => {};
 
   return (
@@ -96,7 +96,7 @@ const Header = () => {
               <IconBtn
                 title="Groups"
                 icon={<GroupIcon />}
-                onClick={openNewGroup}
+                onClick={navigateToGroup}
               />
 
               <IconBtn

@@ -33,9 +33,9 @@ const ChatItems = ({
           
         }}
       >
-        <AvatarCard avatar={avatar} />
 
-        <Stack>
+        <Stack direction={"row"} alignItems={"center"}  >
+        <AvatarCard avatar={avatar} />
           <Typography>{name}</Typography>
 
           {newMessageAlert && (

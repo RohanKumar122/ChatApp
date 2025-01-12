@@ -1,8 +1,8 @@
-import { collapseClasses, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import moment from "moment";
-import React from "react";
-import { memo } from "react";
+import React, { memo } from "react";
 import { fileFormate } from "../../lib/features";
+import RenderAttachment from "../shared/RenderAttachment";
 
 const MessageComponent = ({ message, user }) => {
   const { sender, content, attachments = [], createdAt } = message;
@@ -49,14 +49,15 @@ const MessageComponent = ({ message, user }) => {
           const url = attachment.url;
           const file = fileFormate(url);
           return (
-            <Box key={index}>
+            <Box key={index} >
               <a
-                href=""
+                href={url}
                 target="_blank"
                 download
                 style={{ color: "black" }}
               >
-                {ReanderAttachment(file, url)}
+
+                   {RenderAttachment(file, url)} 
 
               </a>
             </Box>
