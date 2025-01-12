@@ -38,7 +38,7 @@ const NewGroup = () => {
     console.log("Submitted");
   };
 
-  const closeHandler = () => {};  
+  const closeHandler = () => {};
 
   return (
     <Dailog open onClose={closeHandler}>

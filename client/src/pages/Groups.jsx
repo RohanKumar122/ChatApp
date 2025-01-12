@@ -11,6 +11,7 @@ import {
   Icon,
 } from "@mui/material";
 import {
+  Add,
   Add as AddIcon,
   KeyboardBackspace as ArrowBackIcon,
   Delete as DeleteIcon,
@@ -25,9 +26,17 @@ import { Link } from "../components/styles/StyledComponent";
 import AvatarCard from "../components/shared/AvatarCard";
 import { SampleChats } from "../constants/sampleData";
 import { Button } from "@mui/material";
+import { Suspense } from "react";
+import { Backdrop } from "@mui/material";
 
-const ConfirmDeleteDailog =lazy(() => import("../components/dialogs/ConfirmDeleteDailog"));
+const ConfirmDeleteDailog = lazy(() =>
+  import("../components/dialogs/ConfirmDeleteDailog")
+);
+const AddMemberDailog = lazy(() =>
+  import("../components/dialogs/AddMemberDailog")
+);
 
+const isAddMember = true;
 const Groups = () => {
   const chatId = useSearchParams()[0].get("group");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -36,7 +45,6 @@ const Groups = () => {
   const [groupName, setGroupName] = useState("");
   const [groupNameUpdatedValue, setGroupNameUpdatedValue] = useState("");
   const [confirmDeleteDailog, setDeleteDailog] = useState(false);
-
 
   const navigate = useNavigate();
 
@@ -62,6 +70,11 @@ const Groups = () => {
   };
   const closeConfirmDeletehandler = () => {
     setDeleteDailog(false);
+  };
+
+  const deleteHandler = () => {
+    console.log("deleted");
+    closeConfirmDeletehandler();
   };
 
   useEffect(() => {
@@ -156,13 +169,20 @@ const Groups = () => {
         md: "1rem 4rem",
       }}
     >
-      <Button size="large" color="error" startIcon={<DeleteIcon />}
-      onClick={openConfirmDeletehandler}
+      <Button
+        size="large"
+        color="error"
+        startIcon={<DeleteIcon />}
+        onClick={openConfirmDeletehandler}
       >
         Delete Group
       </Button>
-      <Button size="large" variant="contained" startIcon={<AddIcon />} 
-      onClick={closeConfirmDeletehandler}>
+      <Button
+        size="large"
+        variant="contained"
+        startIcon={<AddIcon />}
+        onClick={closeConfirmDeletehandler}
+      >
         Add Memeber
       </Button>
     </Stack>
@@ -227,10 +247,20 @@ const Groups = () => {
           </>
         )}
       </Grid>{" "}
-
-        {confirmDeleteDailog && 
-        <>hedthed</>}
-
+      {isAddMember && (
+        <Suspense fallback={<Backdrop open />}>
+         <AddMemberDailog/>
+        </Suspense>
+      )}
+      {confirmDeleteDailog && (
+        <Suspense fallback={<Backdrop open />}>
+          <ConfirmDeleteDailog
+            open={confirmDeleteDailog}
+            handleClose={closeConfirmDeletehandler}
+            deleteHandler={deleteHandler}
+          />
+        </Suspense>
+      )}
       <Drawer
         sx={{ display: { xs: "block", sm: "none" } }}
         open={isMobileMenuOpen}
