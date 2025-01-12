@@ -33,6 +33,7 @@ export const sampleUsers = [
     name: "Amit",
     _id: "3",
   },
+  
 ];
 
 export const sampleNotification = [

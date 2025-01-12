@@ -8,11 +8,12 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 
 const AddMemberDailog = ({ addMember, isLoadingAddMember, chatId }) => {
-  const [members, setmembers] = useState(sampleUsers);
+  const [members, setMembers] = useState(sampleUsers);
 
   const [selectMembers, setSelectMembers] = useState([]);
 
   const selectMemberHandler = (id) => {
+    
 
     setSelectMembers((prev) =>
       prev.includes(id)
@@ -21,16 +22,21 @@ const AddMemberDailog = ({ addMember, isLoadingAddMember, chatId }) => {
     );
   };
 
-  const closeHandler = () => {};
-  const AddmemberSubmitHandler = () => {};
+  const closeHandler =()=> {
+    setSelectMembers([]);
+    setMembers([]);
+  };
+  const AddmemberSubmitHandler = () => {
+    closeHandler();
+  };
 
   return (
     <Dailog open onClose={closeHandler}>
       <Stack p={"2rem"} width={"20rem"} spacing={"1rem"}>
         <DailogTitle textAlign={"center"}>Add Member</DailogTitle>
         <Stack spacing={"1rem"}>
-          {sampleUsers.length > 0 ? (
-            sampleUsers.map((i) => (
+          {members.length > 0 ? (
+            members.map((i) => (
               <UserItems
                 key={i._id}
                 user={i}

@@ -3,8 +3,14 @@ import { memo } from "react";
 import { Avatar, IconButton, ListItem, Stack, Typography } from "@mui/material";
 import { Add as AddIcon, Remove as RemoveIcon } from "@mui/icons-material";
 
-const UserItems = ({ user, handler, handlerIsLoading}) => {
-  const { name, _id, avatar,isAdded } = user;
+const UserItems = ({
+  user,
+  handler,
+  handlerIsLoading,
+  isAdded = false,
+  styling={},
+}) => {
+  const { name, _id, avatar } = user;
   return (
     <ListItem
       sx={{
@@ -21,6 +27,7 @@ const UserItems = ({ user, handler, handlerIsLoading}) => {
         alignItems={"center"}
         spacing={"1rem"}
         width={"100%"}
+        {...styling}
       >
         <Avatar />
         <Typography
@@ -49,11 +56,7 @@ const UserItems = ({ user, handler, handlerIsLoading}) => {
           onClick={() => handler(_id)}
           disabled={handlerIsLoading}
         >
-          {
-            isAdded ? <RemoveIcon/>: <AddIcon />
-          }
-
-          
+          {isAdded ? <RemoveIcon /> : <AddIcon />}
         </IconButton>
       </Stack>
     </ListItem>

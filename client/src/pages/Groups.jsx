@@ -28,7 +28,8 @@ import { SampleChats } from "../constants/sampleData";
 import { Button } from "@mui/material";
 import { Suspense } from "react";
 import { Backdrop } from "@mui/material";
-
+import UserItems from "../components/shared/UserItems";
+import { sampleUsers } from "../constants/sampleData";
 const ConfirmDeleteDailog = lazy(() =>
   import("../components/dialogs/ConfirmDeleteDailog")
 );
@@ -36,7 +37,7 @@ const AddMemberDailog = lazy(() =>
   import("../components/dialogs/AddMemberDailog")
 );
 
-const isAddMember = true;
+const isAddMember = false;
 const Groups = () => {
   const chatId = useSearchParams()[0].get("group");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -77,10 +78,17 @@ const Groups = () => {
     closeConfirmDeletehandler();
   };
 
+  const removeMemberHandler = () => {
+    
+    console.log("removed");
+  };
+
   useEffect(() => {
     // const group = SampleChats.find((group) => group._id === chatId);
-    setGroupName(`Group Name  ${chatId}`);
-    setGroupNameUpdatedValue(`Group Name  ${chatId}`);
+    if (chatId) {
+      setGroupName(`Group Name  ${chatId}`);
+      setGroupNameUpdatedValue(`Group Name  ${chatId}`);
+    }
     return () => {
       setGroupName("");
       setGroupNameUpdatedValue("");
@@ -196,7 +204,7 @@ const Groups = () => {
           display: { xs: "none", sm: "block" },
         }}
         sm={4}
-        bgcolor={"#f5f5f5"}
+        bgcolor={"rgba(18, 34, 54, 0.1)"} 
       >
         <GroupList myGroups={SampleChats} chatId={chatId} />
       </Grid>
@@ -241,6 +249,20 @@ const Groups = () => {
               overflow={"auto"}
             >
               {/* Members */}
+
+              {sampleUsers.map((i) => (
+                <UserItems
+                  key={i._id}
+                  user={i}
+                  isAdded 
+                  styling={{
+                    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                    padding: "1rem 2rem",
+                    borderRadius: "10px",
+                  }}
+                  handler={removeMemberHandler}
+                />
+              ))}
             </Stack>
 
             {ButtonGroup}
@@ -249,7 +271,7 @@ const Groups = () => {
       </Grid>{" "}
       {isAddMember && (
         <Suspense fallback={<Backdrop open />}>
-         <AddMemberDailog/>
+          <AddMemberDailog />
         </Suspense>
       )}
       {confirmDeleteDailog && (
@@ -273,7 +295,12 @@ const Groups = () => {
 };
 
 const GroupList = ({ w = "100%", myGroups = [], chatId }) => (
-  <Stack width={w} direction="column" gap={"1rem"}>
+  <Stack width={w}
+  sx={{
+    overflow: "auto",
+    height: "100vh"
+  }}
+  >
     {myGroups.length > 0 ? (
       myGroups?.map((group, index) => (
         <GroupListItem key={index} group={group} chatId={chatId} />
