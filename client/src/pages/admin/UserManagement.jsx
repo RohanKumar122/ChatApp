@@ -1,10 +1,9 @@
-import React from "react";
+import { Avatar } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../../components/layout/AdminLayout";
 import Table from "../../components/shared/Table";
-import { useState } from "react";
-import { Avatar } from "@mui/material";
-import { useEffect } from "react";
-import {dashboardData} from "../../constants/sampleData";
+import { dashboardData } from "../../constants/sampleData";
+import { transformImage } from "../../lib/features";
 
 const columns = [
   {
@@ -45,17 +44,20 @@ const columns = [
     headerName: "Groups",
     headerClassName: "table-header",
     width: 200,
-  }
+  },
 ];
 const UserManagement = () => {
   const [rows, setRows] = useState([]);
 
-  // useEffect(() => {
-  //   setRows( dashboardData.users.map((i)=>{
-  //     // ({...i,id:i._id})
-  //     console.log(i);
-  //   }) );
-  // }, []);
+  useEffect(() => {
+    setRows(
+      dashboardData.users.map((i) => ({
+        ...i,
+        id: i._id,
+        avatar: transformImage(i.avatar, 50),
+      }))
+    );
+  }, []);
 
   return (
     <AdminLayout>
