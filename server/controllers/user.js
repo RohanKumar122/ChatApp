@@ -1,4 +1,5 @@
 import { User } from "../models/user.js";
+import { sendToken } from "../utils/features.js";
 
 const newUser = async (req, res) => {
   const {name,username,password,bio}=req.body;
@@ -10,7 +11,7 @@ const newUser = async (req, res) => {
 
   console.log(req.body, name, username,password);
 
-  await User.create({
+  const user = await User.create({
     name,
     bio,
     username,
@@ -18,7 +19,8 @@ const newUser = async (req, res) => {
     avatar
   });
   console.log(req.body);
-  res.status(201).json({message: "User created"});
+  
+  sendToken(res, user, 201, "User created successfully");
 
 };
 
