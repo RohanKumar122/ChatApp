@@ -1,10 +1,9 @@
-import { TryCatch } from "./error.js";
 import jwt from "jsonwebtoken";
 
-const isAuthhenticated =TryCatch( async (req, res, next) => {
+const isAuthenticated =(req, res, next) => {
     const token = req.cookies["chat-token"];
     
-    if(!token) return res.status(401).json({success:false,message:"Unauthorized"});
+    if(!token) return res.status(401).json({success:false,message:"Please Login to access this route"});
 
     const decodeData = jwt.verify(token,process.env.JWT_SECRET);
 
@@ -15,6 +14,6 @@ const isAuthhenticated =TryCatch( async (req, res, next) => {
     next();
 
 
-})
+}
 
-export {isAuthhenticated}
+export {isAuthenticated}

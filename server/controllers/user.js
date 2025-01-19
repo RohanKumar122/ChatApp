@@ -1,6 +1,6 @@
 import { TryCatch } from "../middlewares/error.js";
 import { User } from "../models/user.js";
-import { sendToken } from "../utils/features.js";
+import { cookieOptions, sendToken } from "../utils/features.js";
 import { compare } from "bcrypt";
 import { Errorhandler } from "../utils/utility.js";
 
@@ -50,4 +50,23 @@ const getMyProfile =TryCatch( async (req, res) => {
 })  
 
 
-export { login, newUser,getMyProfile };
+const logout =TryCatch( async (req, res) => {
+   
+    return res.status(200).cookie("chat-token","",{...cookieOptions, maxAge:0}).json({
+        success: true,
+        message : "Logged out successfully"
+    })
+})  
+
+
+const searchUser =TryCatch( async (req, res) => {
+   
+  const {name} =req.query;
+  return res.status(200).json({
+      success: true,
+      message :name
+  })
+})  
+
+
+export { login, newUser,getMyProfile,logout,searchUser };

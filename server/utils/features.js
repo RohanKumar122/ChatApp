@@ -28,4 +28,4 @@ const sendToken = (res, user, code, message) => {
   });
 };
 
-export { connnectDB,sendToken };
+export { connnectDB,sendToken,cookieOptions };
