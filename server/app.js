@@ -4,6 +4,7 @@ import { connnectDB } from "./utils/features.js";
 import dotenv from "dotenv";
 import { errorMiddleware } from "./middlewares/error.js";
 dotenv.config();
+import cookieParser from "cookie-parser"
 
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT || 5000;
@@ -12,6 +13,7 @@ connnectDB(MONGO_URI);
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser())
 
 
 app.use("/user", userRoute);
